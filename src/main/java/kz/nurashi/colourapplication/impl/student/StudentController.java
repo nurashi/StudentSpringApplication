@@ -29,8 +29,15 @@ public class StudentController {
         studentService.addNewStudent(student);
     }
 
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping(path = "students/{id}")
     public void deleteStudent(@PathVariable("id") Integer id) {
         studentService.deleteStudent(id);
+    }
+
+
+    @PutMapping(path = "students/{id}")
+    public void updateStudent(@PathVariable("id") Integer id, @RequestBody Student student) {
+        System.out.println("Worked/////////////////////////////////////////////////");
+        studentService.updateStudent(student.getId(), student.getName(), student.getEmail());
     }
 }

@@ -33,7 +33,6 @@ public class StudentService {
     }
 
     public void deleteStudent(Integer studentId) {
-        studentRepository.findById(studentId).ifPresent(studentRepository::delete);
         if(!studentRepository.existsById(studentId)) {
             throw new IllegalStateException("This student not exists");
         }
@@ -45,6 +44,9 @@ public class StudentService {
     public void updateStudent(Integer id,String name, String email){
         Student student = studentRepository.findById(id).orElseThrow(() -> new IllegalStateException("Student not found"));
 
+        System.out.println("name: " + name);
+        System.out.println("email: " + email);
+        System.out.println("prev email " + student.getEmail());
 
         if(name != null && email != null && !Objects.equals(email, student.getEmail())) {
 
@@ -55,5 +57,6 @@ public class StudentService {
             }
             student.setEmail(email);
         }
+        studentRepository.save(student);
     }
 }
